@@ -1033,11 +1033,16 @@ static void print_version()
 
 static void print_usage(const char* appname)
 {
-    printf("Usage: %s [--threads=##] [appname | pid...]\n", appname);
-    printf("    [-p=PATH] Path to search (default '/')\n");
-    printf("    [-vv]\n");
-    printf("    [--version]\n");
-    printf("    [-?|-h|--help]\n");
+    printf("Usage: %s [options] [appname | pid...]\n", appname);
+    printf("Where options are:\n");
+    printf("    [--threads=##]      Number of threads\n");
+    printf("    [-p=PATH]\n");
+    printf("    [--path=PATH]       Path to search (default '/')\n");
+    printf("    [--ignoredir=NAME]  Directories to ignore in searched path\n");
+    printf("    [-v|--verbose]      More option increase verbosity level\n");
+    printf("    [--no-color]        Do not colorize output\n");
+    printf("    [--version]         Show version and stop\n");
+    printf("    [-?|-h|--help]      Show this help and stop\n");
 }
 
 static void parse_cmdline(int argc, char** argv, std::vector<std::string>& cmdline_applist)
@@ -1058,7 +1063,7 @@ static void parse_cmdline(int argc, char** argv, std::vector<std::string>& cmdli
 
     int c;
     int opt_ind = 0;
-    while ((c = getopt_long(argc, argv, "m:s:p:?hv", long_opts, &opt_ind)) != -1) {
+    while ((c = getopt_long(argc, argv, "p:?hv", long_opts, &opt_ind)) != -1) {
         switch (c) {
         case 0:
             if (!strcasecmp("help", long_opts[opt_ind].name)) {
